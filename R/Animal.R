@@ -1,19 +1,9 @@
-#' @title Animal Class Module
-#' @description This module provides the Animal class for handling different animal types
-#' and retrieving emission factors for solid/manure from configuration files.
-#' @details The Animal class is used to standardize animal types and retrieve 
-#' emission factors from various configuration files.
-
-# Load required libraries
-library(yaml)
-library(R6)
-
-# Source utility functions
-source(file.path(getwd(), "src/utils/animal_utils.R"))
-
 #' @title Animal Class
 #' @description Class that handles different animal types and retrieves emission factors
-#' for solid/manure from the configuration files.
+#' for solid/manure from the configuration files, with focus on feeding and housing components.
+#'
+#' @importFrom R6 R6Class
+#' @importFrom yaml read_yaml
 #' @export
 Animal = R6Class("Animal",
   public = list(
@@ -31,9 +21,9 @@ Animal = R6Class("Animal",
     
     #' @description Initialize a new Animal object
     #' @param animal_type The type of animal (e.g., dairy_cattle_tied, dairy_cattle)
-    #' @param config_dir The directory containing configuration files (default: "config")
+    #' @param config_dir The directory containing configuration files
     #' @return A new Animal object
-    initialize = function(animal_type, config_dir = file.path(getwd(), "config")) {
+    initialize = function(animal_type, config_dir = system.file("extdata", package = "EMEP_MMS")) {
       self$animal_type = animal_type
       self$config_dir = config_dir
       self$standardized_type = .standardize_animal_type(animal_type, config_dir)
@@ -70,7 +60,7 @@ Animal = R6Class("Animal",
                                              self$config_dir)
       }
       
-      # Load straw/litter data
+      # Load straw/litter data (important for feeding components)
       straw_file = file.path(self$config_dir, "straw_litter.yaml")
       if (file.exists(straw_file)) {
         straw_data = yaml::read_yaml(straw_file)
@@ -90,7 +80,7 @@ Animal = R6Class("Animal",
       return(data)
     },
     
-    #' @description Get emission factors for solid manure
+    #' @description Get emission factors for solid manure with focus on housing
     #' @return A list of emission factors for solid manure
     get_solid_emission_factors = function() {
       solid_factors = list()
@@ -126,7 +116,7 @@ Animal = R6Class("Animal",
       return(solid_factors)
     },
     
-    #' @description Get emission factors for liquid/slurry manure
+    #' @description Get emission factors for liquid/slurry manure with focus on housing
     #' @return A list of emission factors for liquid/slurry manure
     get_slurry_emission_factors = function() {
       slurry_factors = list()

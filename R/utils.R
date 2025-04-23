@@ -1,8 +1,7 @@
-#' Helper functions for animal data processing
-#'
-#' @description
-#' This file contains helper functions for processing animal data,
+#' @title Utility functions for animal data processing
+#' @description Helper functions for processing animal data,
 #' standardizing animal types, and extracting emission factors.
+#' @keywords internal
 
 #' Standardize animal type based on livestock class conversion
 #'
@@ -68,18 +67,4 @@
   
   # Return NULL if no data found
   return(NULL)
-}
-
-#' Create an Animal object
-#'
-#' @param animal_type The type of animal (e.g., dairy_cattle_tied, dairy_cattle)
-#' @return An Animal object
-#' @export
-set_livestock_parameters = function(animal_type) {
-  # Ensure the Livestock module is loaded
-  if (!exists("Animal", envir = .GlobalEnv)) {
-    source(file.path(getwd(), "src/Livestock.R"))
-  }
-  animal = Animal$new(animal_type)
-  return(animal)
 }
