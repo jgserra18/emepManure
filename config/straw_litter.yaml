@@ -1,0 +1,35 @@
+livestock_categories:
+  dairy_cattle:
+    housing_period_days: 180
+    straw_kg_per_AAP_per_year: 1500
+    nitrogen_added_in_straw_kg_per_AAP_per_year: 6.00
+
+  cattle:
+    housing_period_days: 180
+    straw_kg_per_AAP_per_year: 500
+    nitrogen_added_in_straw_kg_per_AAP_per_year: 2.00
+
+  pigs:
+    housing_period_days: 365
+    straw_kg_per_AAP_per_year: 200
+    nitrogen_added_in_straw_kg_per_AAP_per_year: 0.80
+
+  sows:
+    housing_period_days: 365
+    straw_kg_per_AAP_per_year: 600
+    nitrogen_added_in_straw_kg_per_AAP_per_year: 2.40
+
+  sheeps:
+    housing_period_days: 30
+    straw_kg_per_AAP_per_year: 20
+    nitrogen_added_in_straw_kg_per_AAP_per_year: 0.08
+
+  goats:
+    housing_period_days: 30
+    straw_kg_per_AAP_per_year: 20
+    nitrogen_added_in_straw_kg_per_AAP_per_year: 0.08
+
+  horses:
+    housing_period_days: 180
+    straw_kg_per_AAP_per_year: 500
+    nitrogen_added_in_straw_kg_per_AAP_per_year: 2.00

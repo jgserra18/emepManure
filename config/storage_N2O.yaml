@@ -1,0 +1,38 @@
+storage_N2O_EF:
+  dairy_cattle:
+    storage_system: slurry, without natural crust
+      EF: 0
+    storage_system: slurry, with natural crust
+      EF: 0.01
+    storage_system: solid, manure heaps
+      EF: 0.02
+
+  cattle:
+    storage_system: slurry without natural crust
+      EF: 0
+    storage_system: slurry with natural crust
+      EF: 0.01
+    storage_system: solid, manure heaps
+      EF: 0.02
+
+  pigs:
+    storage_system: slurry, without natural crust
+      EF: 0
+    storage_system: solid, manure heaps
+      EF: 0.01
+
+  sheeps:
+    storage_system: solid, manure heaps
+      EF: 0.02
+
+  goats:
+    storage_system: solid, manure heaps
+      EF: 0.02
+
+  horses:
+    storage_system: solid, manure heaps
+      EF: 0.02
+
+  birds:
+    storage system: solid, manure heaps
+      EF: 0.002
