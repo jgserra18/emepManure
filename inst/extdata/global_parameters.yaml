@@ -1,0 +1,4 @@
+global_parameters:
+    f_imm: 0.0067
+    f_min: 0.1 
+    f_min_digester: 0.32

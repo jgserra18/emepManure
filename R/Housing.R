@@ -12,7 +12,10 @@
 housing_deposited = function(housing_nutrient,
                              f_man_type) {
   
-  if (f_man_type>1) { stop('Proportion of manure handled as either liquid/solid must be [0,1].')}
+  if (f_man_type < 0 || f_man_type > 1) { 
+    stop('ERROR in housing_deposited(): The proportion of manure handled as either liquid/solid (f_man_type) must be between 0 and 1. You provided: ', f_man_type, 
+         '\nPlease check your input parameters for this animal type.')
+  }
   
   return( housing_nutrient * f_man_type)
 }
@@ -20,7 +23,6 @@ housing_deposited = function(housing_nutrient,
 #' housing_NH3
 #'
 #' @param housing_tan total amount of TAN deposited onto animal housing (kg TAN/yr)
-#' @param f_man_type  proportion of livestock manure handled as slurry or solid (0-1)
 #' @param EF Housing emission factor (kg N-NH3/kg TAN)
 #' @description
 #' calculates N-NH3 losses from livestock housing for both slurry and solid
@@ -30,8 +32,7 @@ housing_deposited = function(housing_nutrient,
 #' @unit kg N-NH3/yr
 #' @examples
 housing_NH3 = function(housing_tan,
-                       f_man_type,
                        EF) {
   
-  return( housing_tan * f_man_type * EF)
+  return( housing_tan * EF)
 }

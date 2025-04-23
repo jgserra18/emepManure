@@ -1,75 +1,120 @@
 livestock_excretion:
   dairy_cattle:
     housing_period_days: 180
+    fraction_housing: 0.49
+    fraction_yards: 0.25
+    fraction_grazing: 0.26
     Nex_kg_head: 105
     TAN_proportion: 0.6
 
   dairy_cattle_tied:
     housing_period_days: 180
+    fraction_housing: 0.49
+    fraction_yards: 0.25
+    fraction_grazing: 0.26
     Nex_kg_head: 105
     TAN_proportion: 0.6
 
   cattle:
     housing_period_days: 180
+    fraction_housing: 0.49
+    fraction_yards: 0.10
+    fraction_grazing: 0.41
     Nex_kg_head: 41
     TAN_proportion: 0.6
 
   sheep:
     housing_period_days: 30
+    fraction_housing: 0.08
+    fraction_yards: 0.02
+    fraction_grazing: 0.90
     Nex_kg_head: 15.5
     TAN_proportion: 0.5
 
   pigs:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 12.1
     TAN_proportion: 0.7
 
   sows:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 34.5
     TAN_proportion: 0.7
 
   buffalo:
     housing_period_days: 140
+    fraction_housing: 0.38
+    fraction_yards: 0.0
+    fraction_grazing: 0.62
     Nex_kg_head: 82.0
     TAN_proportion: 0.5
 
   goats:
     housing_period_days: 30
+    fraction_housing: 0.08
+    fraction_yards: 0.0
+    fraction_grazing: 0.92
     Nex_kg_head: 15.5
     TAN_proportion: 0.5
 
   horses:
     housing_period_days: 180
+    fraction_housing: 0.49
+    fraction_yards: 0.0
+    fraction_grazing: 0.51
     Nex_kg_head: 47.5
     TAN_proportion: 0.6
 
   laying_hens:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 0.77
     TAN_proportion: 0.7
 
   broilers:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 0.36
     TAN_proportion: 0.7
 
   turkeys:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 1.64
     TAN_proportion: 0.7
 
   ducks:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 1.26
     TAN_proportion: 0.7
 
   geese:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 0.55
     TAN_proportion: 0.7
 
   fur_animals:
     housing_period_days: 365
+    fraction_housing: 1.0
+    fraction_yards: 0.0
+    fraction_grazing: 0.0
     Nex_kg_head: 4.60
     TAN_proportion: 0.6

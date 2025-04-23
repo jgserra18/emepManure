@@ -1,17 +1,25 @@
 livestock_conversions:
     dairy_cattle:
-        dairy_cattle_tied
-        dairy_cattle
+        - dairy_cattle_tied
+        - dairy_cattle
     cattle:
-        cattle
+        - cattle
     pigs:
-        pigs
+        - pigs
     sows:
-        sows
-        piglets
+        - sows
+        - piglets
     birds:
-        laying_hens
-        broilers
-        turkeys
-        ducks
-        geese
+        - laying_hens
+        - broilers
+        - turkeys
+        - ducks
+        - geese
+    sheep:
+        - sheep
+    goats:
+        - goats
+    horses:
+        - horses
+    fur_animals:
+        - fur_animals
