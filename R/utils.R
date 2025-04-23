@@ -15,17 +15,27 @@
     stop("Livestock class conversion file not found: ", conversion_file)
   }
   
-  conversions = yaml::read_yaml(conversion_file)$livestock_conversions
+  # Read the YAML file as text to handle the non-standard format
+  yaml_text = readLines(conversion_file)
   
-  # Check if the animal_type is already a standard type (a key in the conversions)
-  if (animal_type %in% names(conversions)) {
+  # Check if the animal_type is already a standard type
+  standard_types = c("dairy_cattle", "cattle", "pigs", "sows", "birds")
+  if (animal_type %in% standard_types) {
     return(animal_type)
   }
   
-  # Find which standard type this animal_type belongs to
-  for (std_type in names(conversions)) {
-    if (animal_type %in% conversions[[std_type]]) {
-      return(std_type)
+  # Manual parsing for the specific format
+  current_type = NULL
+  for (line in yaml_text) {
+    # Skip the first line with livestock_conversions:
+    if (grepl("livestock_conversions:", line)) next
+    
+    # Check if this is a main category line (has a colon)
+    if (grepl(":\\s*$", line)) {
+      current_type = gsub("\\s+|:", "", line)
+    } else if (!is.null(current_type) && grepl(animal_type, line)) {
+      # If we found the animal type in a subtypes line
+      return(current_type)
     }
   }
   

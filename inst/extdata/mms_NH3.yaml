@@ -64,24 +64,24 @@ MMS_NH3_EF:
   piglets:
     slurry:
       housing: 0.35
-      yard: null
+      yard: 0
       storage: 0.11
       application: 0.29
     solid:
       housing: 0.24
-      yard: null
+      yard: 0
       storage: 0.29
       application: 0.45
 
   sows:
     slurry:
       housing: 0.35
-      yard: null
+      yard: 0
       storage: 0.11
       application: 0.29
     solid:
       housing: 0.24
-      yard: null
+      yard: 0
       storage: 0.29
       application: 0.45
 
@@ -96,54 +96,54 @@ MMS_NH3_EF:
   horses:
     solid:
       housing: 0.22
-      yard: null
+      yard: 0
       storage: 0.35
       application: 0.90
       grazing: 0.35
 
-laying_hens:
+  laying_hens:
     solid:
       housing: 0.20
-      yard: null
+      yard: 0
       storage: 0.08
       application: 0.45
     slurry:
       housing: 0.41
-      yard: null
+      yard: 0
       storage: 0.14
       application: 0.69
 
   broilers:
     solid:
       housing: 0.21
-      yard: null
+      yard: 0
       storage: 0.30
       application: 0.38
 
   turkeys:
     solid:
       housing: 0.35
-      yard: null
+      yard: 0
       storage: 0.24
       application: 0.54
 
   ducks:
     solid:
       housing: 0.24
-      yard: null
+      yard: 0
       storage: 0.24
       application: 0.54
 
   geese:
     solid:
       housing: 0.57
-      yard: null
+      yard: 0
       storage: 0.16
       application: 0.45
 
   fur_animals:
     solid:
       housing: 0.27
-      yard: null
+      yard: 0
       storage: 0.09
       application: 0.31
