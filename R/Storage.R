@@ -69,7 +69,7 @@ storage_solid = function(ex_housing_solid,
 
 #' storage_emissions
 #'
-#' @param housing_TAN TAN flows from slurry or solid manure in storage (kg TAN/yr)
+#' @param storage_TAN TAN flows from slurry or solid manure in storage (kg TAN/yr)
 #' @param EF_NH3 Storage emission factor (kg N-NH3/kg TAN)
 #' @param EF_N2O Storage emission factor (kg N-N2O/kg TAN)
 #' @param EF_NO Storage emission factor (kg N-NO/kg TAN)
@@ -81,16 +81,16 @@ storage_solid = function(ex_housing_solid,
 #' @export
 #' @unit kg N-N_compound/yr
 #' @examples
-storage_emissions = function(housing_TAN,
+storage_emissions = function(storage_TAN,
                              EF_NH3,
                              EF_N2O,
                              EF_NO,
                              EF_N2) {
   
-  storage_NH3 = housing_TAN * EF_NH3
-  storage_N2O = housing_TAN * EF_N2O
-  storage_NO = housing_TAN * EF_NO
-  storage_N2 = housing_TAN * EF_N2
+  storage_NH3 = storage_TAN * EF_NH3
+  storage_N2O = storage_TAN * EF_N2O
+  storage_NO = storage_TAN * EF_NO
+  storage_N2 = storage_TAN * EF_N2
   
   return(list(
     NH3 = storage_NH3,

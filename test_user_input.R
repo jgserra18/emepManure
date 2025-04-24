@@ -1,6 +1,8 @@
 library(yaml)
 library(R6)
 
+setwd('C:\\Users\\João Serra\\OneDrive\\Modelling\\EMEP_MMS')
+
 # Source the User_input.R file
 source("R/User_input.R")
 
@@ -9,6 +11,7 @@ cat("\n===== TEST 1: Dairy Cattle (Subtype) =====\n")
 input1 = User_input$new(
   animal_type = "turkeys",  # A subtype, should map to dairy_cattle
   animal_number = 100,
+  slurry_crust = F,
   #excretion_coefficient = 105, 
   fraction_manure_slurry = 0.7,
   fraction_manure_solid = 0.3,

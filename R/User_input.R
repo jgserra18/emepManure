@@ -101,6 +101,10 @@ User_input = R6Class("User_input",
     #' @field fraction_biogas_solid Fraction of solid manure going to biogas [0-1]. Must not exceed 1 with storage.
     fraction_biogas_solid = NULL,
     
+    #' @field slurry_crust Boolean indicating whether slurry storage has a crust (TRUE) or not (FALSE).
+    #' This affects N2O emission factors for cattle and pigs.
+    slurry_crust = TRUE,
+    
     #' @field valid Boolean indicating if all input parameters are valid
     valid = FALSE,
     
@@ -132,6 +136,7 @@ User_input = R6Class("User_input",
     #' @param fraction_biogas_slurry Fraction of slurry going to biogas [0-1]. Must not exceed 1 with storage.
     #' @param fraction_storage_solid Fraction of solid manure going to storage [0-1]. Must not exceed 1 with biogas.
     #' @param fraction_biogas_solid Fraction of solid manure going to biogas [0-1]. Must not exceed 1 with storage.
+    #' @param slurry_crust Boolean indicating whether slurry storage has a crust (TRUE) or not (FALSE). Default is TRUE.
     #' @return A new User_input object with validation results
     initialize = function(animal_type,
                           animal_number,
@@ -146,7 +151,8 @@ User_input = R6Class("User_input",
                           fraction_storage_slurry,
                           fraction_biogas_slurry,
                           fraction_storage_solid,
-                          fraction_biogas_solid) {
+                          fraction_biogas_solid,
+                          slurry_crust = TRUE) {
       
       # Store the input parameters
       self$animal_type = animal_type
@@ -176,6 +182,7 @@ User_input = R6Class("User_input",
       self$fraction_biogas_slurry = fraction_biogas_slurry
       self$fraction_storage_solid = fraction_storage_solid
       self$fraction_biogas_solid = fraction_biogas_solid
+      self$slurry_crust = slurry_crust
       
       # Validate the input parameters
       self$validate()
@@ -265,6 +272,7 @@ User_input = R6Class("User_input",
       cat("Animal type:", self$animal_type, "\n")
       cat("Number of animals:", self$animal_number, "head/yr\n")
       cat("Excretion coefficient:", self$excretion_coefficient, "kg N/(head.yr)\n")
+      cat("Slurry crust present:", ifelse(self$slurry_crust, "Yes", "No"), "\n")
       cat("Allocation fractions:\n")
       cat("  - Grazing:", self$fraction_grazing, "\n")
       cat("  - Yards:", self$fraction_yards, "\n")
@@ -305,27 +313,18 @@ User_input = R6Class("User_input",
         animal_type = self$animal_type,
         animal_number = self$animal_number,
         excretion_coefficient = self$excretion_coefficient,
-        fraction_allocation = list(
-          grazing = self$fraction_grazing,
-          yards = self$fraction_yards,
-          housing = self$fraction_housing
-        ),
+        fraction_grazing = self$fraction_grazing,
+        fraction_yards = self$fraction_yards,
+        fraction_housing = self$fraction_housing,
         fraction_TAN = self$fraction_TAN,
-        fraction_man_type = list(
-          slurry = self$fraction_manure_solid,
-          solid = self$fraction_manure_slurry
-        ),
+        fraction_manure_slurry = self$fraction_manure_slurry,
+        fraction_manure_solid = self$fraction_manure_solid,
         bedding_amount = self$bedding_amount,
-        fraction_man_usage = list(
-          storage = list(
-            slurry = self$fraction_storage_slurry,
-            solid = self$fraction_storage_solid
-          ),
-          biogas = list(
-            slurry = self$fraction_biogas_slurry,
-            solid = self$fraction_biogas_solid
-          )
-        )
+        fraction_storage_slurry = self$fraction_storage_slurry,
+        fraction_biogas_slurry = self$fraction_biogas_slurry,
+        fraction_storage_solid = self$fraction_storage_solid,
+        fraction_biogas_solid = self$fraction_biogas_solid,
+        slurry_crust = self$slurry_crust
       ))
     },
     
