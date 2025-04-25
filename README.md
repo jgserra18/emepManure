@@ -74,10 +74,24 @@ emNH3 = reshape2::melt(
 )
 emNH3$stage = c('Housing','Housing','Storage','Storage','Application','Application','Yards','Grazing')
 emNH3$manure = c('Solid','Slurry','Slurry','Solid','Solid','Slurry', NA, NA)
+```
+```{r nh3-plot, fig.width=10, fig.height=6, dpi=300}
+# NH3 quick plot 
+emNH3 = reshape2::melt(
+  data.frame(housing_solid = results$housing$solid$NH3_N,
+             housing_slurry = results$housing$slurry$NH3_N,
+             storage_slurry = results$storage$slurry$NH3_N,
+             storage_solid = results$storage$solid$NH3_N,
+             app_solid = results$application$solid$NH3_N,
+             app_slurry = results$application$slurry$NH3_N,
+             yards = results$yards$NH3_N,
+             grazing = results$grazing$NH3_N)
+)
+emNH3$stage = c('Housing','Housing','Storage','Storage','Application','Application','Yards','Grazing')
+emNH3$manure = c('Solid','Slurry','Slurry','Solid','Solid','Slurry', NA, NA)
 
-# Create the plot
 ggplot(emNH3, aes(x=stage, y=value, fill=manure)) + 
-  geom_bar(stat = 'identity', colour='white') + 
+  geom_bar(stat = 'identity',colour='white') + 
   scale_fill_manual(na.value = 'burlywood4', values = c('Slurry'='goldenrod1','Solid'='darkorange4')) + 
   labs(fill=NULL,
        x='Stage', 
@@ -88,13 +102,6 @@ ggplot(emNH3, aes(x=stage, y=value, fill=manure)) +
     axis.text = element_text(size=14.5),
     legend.text = element_text(size=13)
   )
-```
-
-## Example Output
-
-The following chart shows NH3 emissions by stage and manure type for 100 dairy cattle:
-
-![NH3 emissions by stage and manure type](images/nh3_emissions_by_stage.png)
 
 ## Advanced Example: Dairy cattle with custom milk production
 
