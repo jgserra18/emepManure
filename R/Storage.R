@@ -18,7 +18,7 @@ storage_slurry = function(housing_slurry,
                           yard_NH3,
                           f_man_usage_slurry) {
   
-  if (f_man_destination>1) { stop('Proportion of manure going to either biogas as feedstock OR stored must be [0,1]')}
+  if (f_man_usage_slurry > 1) { stop('Proportion of manure going to either biogas as feedstock OR stored must be [0,1]')}
   
   return ( 
     ((housing_slurry - housing_slurry_NH3) + (yard - yard_NH3)) * f_man_usage_slurry

@@ -12,5 +12,5 @@
 yards_NH3 = function(yards_tan,
                      EF) {
   
-  return( yards_TAN * EF)
+  return( yards_tan * EF)
 }

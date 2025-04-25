@@ -17,7 +17,7 @@ digested_application_TAN = function(biogas_slurry_TAN,
                                 biogas_solid_TAN,
                                 biogas_slurry_N,
                                 biogas_solid_N,
-                                f_min_digester = 0.32,
+                                f_min_digester = 0.0067,
                                 EF) {
   
   if (f_min_digester>1) { stop('Share of organic N entering the digester that is mineralized to TAN in the digester must be [0,1].')}

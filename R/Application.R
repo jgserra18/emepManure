@@ -10,14 +10,13 @@
 manure_direct_application = function(out_storage,
                                      c_f_man_usage) {
   
-  if (class(c_f_man_usage)!='list') { stop('This is meant to be a vector (n=2) with the allocation to biogas and stored.') }
   if (length(c_f_man_usage)!=2) { stop('Must have a length of 2; if no use, please set it to 0.')}
   
   # sum manure proportions and check for consistency
   f_man_usage = sum(c_f_man_usage) # sum fraction of manure to be used as feedstock or stored
   if (f_man_usage>1) { stop('Sum of proportion of manure used as feedstock + stored cannot be higher than 1 (or 100%).') }
   
-  return(out_storage * (1-c_f_man_usage)/f_man_usage)
+  return(out_storage * (1-f_man_usage)/f_man_usage)
 }
 
 
