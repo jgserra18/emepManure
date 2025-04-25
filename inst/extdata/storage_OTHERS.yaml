@@ -1,8 +1,8 @@
 storage_OTHERS_EF:
   slurry:
-    NO: 0.0001
+    NOx: 0.0001
     N2: 0.0030
 
   solid:
-    NO: 0.0100
+    NOx: 0.0100
     N2: 0.3000

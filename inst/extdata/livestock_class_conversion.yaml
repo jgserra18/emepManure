@@ -6,6 +6,7 @@ livestock_conversions:
         - cattle
     pigs:
         - pigs
+        - fattening_pigs
     sows:
         - sows
         - piglets

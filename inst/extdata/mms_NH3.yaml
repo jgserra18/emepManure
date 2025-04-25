@@ -2,148 +2,138 @@ MMS_NH3_EF:
   dairy_cattle:
     slurry:
       housing: 0.24
-      yard: 0.30
       storage: 0.25
       application: 0.55
-      grazing: 0.14
     solid:
       housing: 0.08
-      yard: 0.30
       storage: 0.32
       application: 0.68
-      grazing: 0.14
+    grazing: 0.14
+    yards: 0.30
 
   dairy_cattle_tied:
     slurry:
       housing: 0.09
-      yard: 0.30
       storage: 0.25
       application: 0.55
-      grazing: 0.14
     solid:
       housing: 0.09
-      yard: 0.30
       storage: 0.32
       application: 0.68
-      grazing: 0.14
+    grazing: 0.14
+    yards: 0.30
 
   cattle:
     slurry:
       housing: 0.24
-      yard: 0.53
       storage: 0.25
       application: 0.55
-      grazing: 0.14
     solid:
       housing: 0.08
-      yard: 0.53
       storage: 0.32
       application: 0.68
-      grazing: 0.14
+    grazing: 0.14
+    yards: 0.53
 
   sheep:
     solid:
       housing: 0.22
-      yard: 0.75
       storage: 0.32
       application: 0.90
-      grazing: 0.09
+    grazing: 0.09
+    yards: 0.75
 
   pigs:
     slurry:
       housing: 0.27
-      yard: 0.53
       storage: 0.11
       application: 0.40
     solid:
       housing: 0.23
-      yard: 0.53
       storage: 0.29
       application: 0.45
+    yards: 0.53
 
   piglets:
     slurry:
       housing: 0.35
-      yard: 0
       storage: 0.11
       application: 0.29
     solid:
       housing: 0.24
-      yard: 0
       storage: 0.29
       application: 0.45
+    yards: 0
 
   sows:
     slurry:
       housing: 0.35
-      yard: 0
       storage: 0.11
       application: 0.29
     solid:
       housing: 0.24
-      yard: 0
       storage: 0.29
       application: 0.45
+    yards: 0
 
   goats:
     solid:
       housing: 0.22
-      yard: 0.75
       storage: 0.28
       application: 0.90
-      grazing: 0.09
+    grazing: 0.09
+    yards: 0.75
 
   horses:
     solid:
       housing: 0.22
-      yard: 0
       storage: 0.35
       application: 0.90
-      grazing: 0.35
+    grazing: 0.35
+    yards: 0
 
   laying_hens:
     solid:
       housing: 0.20
-      yard: 0
       storage: 0.08
       application: 0.45
     slurry:
       housing: 0.41
-      yard: 0
       storage: 0.14
       application: 0.69
+    yards: 0
 
   broilers:
     solid:
       housing: 0.21
-      yard: 0
       storage: 0.30
       application: 0.38
+    yards: 0
 
   turkeys:
     solid:
       housing: 0.35
-      yard: 0
       storage: 0.24
       application: 0.54
+    yards: 0
 
   ducks:
     solid:
       housing: 0.24
-      yard: 0
       storage: 0.24
       application: 0.54
+    yards: 0
 
   geese:
     solid:
       housing: 0.57
-      yard: 0
       storage: 0.16
       application: 0.45
+    yards: 0
 
   fur_animals:
     solid:
       housing: 0.27
-      yard: 0
       storage: 0.09
       application: 0.31
+    yards: 0
