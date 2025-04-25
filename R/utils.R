@@ -78,3 +78,29 @@
   # Return NULL if no data found
   return(NULL)
 }
+
+
+#' dairy_excretion_coeff
+#'
+#' @param milk_prod milk produced per dairy cow kg milk/(head.yr)
+#' @description
+#' updates dairy cattle nitrogen excreted (105) based on milk produced
+#' 
+#' @returns
+#' @export
+#' @unit kg N/
+#' @examples dairy_excretion_coeff(milk_prod = 10000)
+dairy_excretion_coeff = function(milk_prod) {
+  
+  if (length(milk_prod)==0) { stop('Please provide at least a value for milk produced per dairy cow.') }
+  
+  standard_Nexc = 115 # kg N/(head.yr)
+  standard_productivity = 7000 # kg milk/(head.yr)
+  
+  dif_productivity = milk_prod - standard_productivity
+  
+  return(ifelse(dif_productivity<=0,
+                standard_Nexc+standard_Nexc*0.1*dif_productivity/1000,
+                standard_Nexc+standard_Nexc*0.02*dif_productivity/1000)
+  )
+}
