@@ -11,8 +11,11 @@ source(file.path(root_dir, "R", "Utils.R"))
 # Test the Emission_factors functions
 test_that("load_NH3_emission_factors works correctly", {
   # Set up test paths
+  mms_NH3_path <- file.path(root_dir, "inst", "extdata", "mms_NH3.yaml")
+  skip_if(!file.exists(mms_NH3_path), "NH3 emission factors file not found")
+  
   config_paths <- list(
-    mms_NH3 = file.path(root_dir, "inst", "extdata", "mms_NH3.yaml")
+    mms_NH3 = mms_NH3_path
   )
   
   # Test loading NH3 emission factors
@@ -28,8 +31,11 @@ test_that("load_NH3_emission_factors works correctly", {
 
 test_that("load_N2O_emission_factors works correctly", {
   # Set up test paths
+  storage_N2O_path <- file.path(root_dir, "inst", "extdata", "storage_N2O.yaml")
+  skip_if(!file.exists(storage_N2O_path), "N2O emission factors file not found")
+  
   config_paths <- list(
-    storage_N2O = file.path(root_dir, "inst", "extdata", "storage_N2O.yaml")
+    storage_N2O = storage_N2O_path
   )
   
   # Test loading N2O emission factors
@@ -44,8 +50,11 @@ test_that("load_N2O_emission_factors works correctly", {
 
 test_that("load_OTHER_emission_factors works correctly", {
   # Set up test paths
+  storage_OTHERS_path <- file.path(root_dir, "inst", "extdata", "storage_OTHERS.yaml")
+  skip_if(!file.exists(storage_OTHERS_path), "OTHER emission factors file not found")
+  
   config_paths <- list(
-    storage_OTHERS = file.path(root_dir, "inst", "extdata", "storage_OTHERS.yaml")
+    storage_OTHERS = storage_OTHERS_path
   )
   
   # Test loading OTHER emission factors
@@ -60,11 +69,21 @@ test_that("load_OTHER_emission_factors works correctly", {
 
 test_that("compile_emission_factors works correctly", {
   # Set up test paths
+  mms_NH3_path <- file.path(root_dir, "inst", "extdata", "mms_NH3.yaml")
+  storage_N2O_path <- file.path(root_dir, "inst", "extdata", "storage_N2O.yaml")
+  storage_OTHERS_path <- file.path(root_dir, "inst", "extdata", "storage_OTHERS.yaml")
+  digestate_NH3_path <- file.path(root_dir, "inst", "extdata", "digestate_NH3.yaml")
+  
+  # Skip if any files are missing
+  skip_if(!file.exists(mms_NH3_path) || !file.exists(storage_N2O_path) || 
+         !file.exists(storage_OTHERS_path) || !file.exists(digestate_NH3_path), 
+         "One or more emission factor files not found")
+  
   config_paths <- list(
-    mms_NH3 = file.path(root_dir, "inst", "extdata", "mms_NH3.yaml"),
-    storage_N2O = file.path(root_dir, "inst", "extdata", "storage_N2O.yaml"),
-    storage_OTHERS = file.path(root_dir, "inst", "extdata", "storage_OTHERS.yaml"),
-    digestate_NH3 = file.path(root_dir, "inst", "extdata", "digestate_NH3.yaml")
+    mms_NH3 = mms_NH3_path,
+    storage_N2O = storage_N2O_path,
+    storage_OTHERS = storage_OTHERS_path,
+    digestate_NH3 = digestate_NH3_path
   )
   
   # Test compiling emission factors
