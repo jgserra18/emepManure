@@ -2,7 +2,7 @@
 
 An R package for calculating emissions from livestock manure management systems.
 
-<img src="images/Logo.png" alt="Logo" width="200"/>
+<img src="img/Logo.png" alt="Logo" width="400" heigth="400"/>
 
 ## Installation
 
