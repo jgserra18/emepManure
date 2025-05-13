@@ -1,7 +1,8 @@
 # rEMEP
 
 An R package for calculating emissions from livestock manure management systems.
-![Alt text](images/Logo.png)
+
+<img src="images/Logo.png" alt="Logo" width="200"/>
 
 ## Installation
 
