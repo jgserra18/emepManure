@@ -1,4 +1,4 @@
-# rEMEP
+# emepManure / rEMEP
 
 An R package for calculating emissions from livestock manure management systems.
 
@@ -11,13 +11,13 @@ An R package for calculating emissions from livestock manure management systems.
 install.packages("devtools")
 
 # Install rEMEP from GitHub
-devtools::install_github("jgserra18/rEMEP")
+devtools::install_github("jgserra18/emepManure")
 ```
 
 ## Basic Usage
 
 ```r
-library(rEMEP)
+library(emepManure)
 
 # Create a User_input object with default parameters for 100 dairy cows
 input = User_input$new(
