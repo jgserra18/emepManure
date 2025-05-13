@@ -34,7 +34,7 @@ mbc_1 = function(exc_total, list_exc_allocation) {
 }
 
 mbc_2 = function(Housing_solid_TAN,
-                 Housing_solid_N,
+                 Housing_solid_N
                  ) {
 
 

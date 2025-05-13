@@ -3,6 +3,7 @@
 #' of the manure management system (housing, yards, grazing, storage, application).
 #'
 #' @importFrom yaml read_yaml
+
 #' @importFrom utils message warning
 
 #' @description Get emission factor for a specific animal type, stage, and gas
@@ -15,12 +16,13 @@
 #' @return Emission factor value or NULL if not found
 get_emission_factor = function(animal_type, stage, gas, manure_type = NULL, 
                                config_paths = list(
-                                 mms_NH3 = "inst/extdata/mms_NH3.yaml",
-                                 storage_N2O = "inst/extdata/storage_N2O.yaml",
-                                 storage_OTHERS = "inst/extdata/storage_OTHERS.yaml",
-                                 digestate_NH3 = "inst/extdata/digestate_NH3.yaml"
+                                 mms_NH3 = system.file("extdata/mms_NH3.yaml", package = "rEMEP"),
+                                 storage_N2O = system.file("extdata/storage_N2O.yaml", package = "rEMEP"),
+                                 storage_OTHERS = system.file("extdata/storage_OTHERS.yaml", package = "rEMEP"),
+                                 digestate_NH3 = system.file("extdata/digestate_NH3.yaml", package = "rEMEP")
                                ),
-                               debug_mode = FALSE) {
+                               debug_mode = FALSE,
+                               slurry_crust = FALSE) {
   
   # Validate inputs
   if (is.null(animal_type) || is.null(stage) || is.null(gas)) {
@@ -74,10 +76,7 @@ get_emission_factor = function(animal_type, stage, gas, manure_type = NULL,
         ef = emission_factors$solid_manure_heaps$EF
       } else if (manure_type == "slurry") {
         # For slurry, check if crust information is available
-        has_crust = FALSE  # Default value
-        if (exists("slurry_crust") && !is.null(slurry_crust)) {
-          has_crust = slurry_crust
-        }
+        has_crust = slurry_crust  # Use the function parameter
         
         if (has_crust && "slurry_with_crust" %in% names(emission_factors) &&
             "EF" %in% names(emission_factors$slurry_with_crust)) {
@@ -114,17 +113,10 @@ get_emission_factor = function(animal_type, stage, gas, manure_type = NULL,
 #' @param debug_mode Enable debug mode for more verbose output
 #' @return List of NH3 emission factors
 load_NH3_emission_factors = function(animal_type, config_paths, debug_mode = FALSE) {
-  # Try both package and direct file path
-  nh3_file = system.file(config_paths$mms_NH3, package = "rEMEP")
-  if (nh3_file == "") {
-    nh3_file = config_paths$mms_NH3
-    if (debug_mode) {
-      message(paste("Using direct file path for NH3 emission factors:", nh3_file))
-    }
-  } else {
-    if (debug_mode) {
-      message(paste("Using package file path for NH3 emission factors:", nh3_file))
-    }
+  # Get file path
+  nh3_file = config_paths$mms_NH3
+  if (debug_mode) {
+    message(paste("Using NH3 emission factors file:", nh3_file))
   }
   
   # Check if file exists
@@ -177,17 +169,10 @@ load_NH3_emission_factors = function(animal_type, config_paths, debug_mode = FAL
 #' @param debug_mode Enable debug mode for more verbose output
 #' @return List of N2O emission factors
 load_N2O_emission_factors = function(animal_type, config_paths, debug_mode = FALSE) {
-  # Try both package and direct file path
-  n2o_file = system.file(config_paths$storage_N2O, package = "rEMEP")
-  if (n2o_file == "") {
-    n2o_file = config_paths$storage_N2O
-    if (debug_mode) {
-      message(paste("Using direct file path for N2O emission factors:", n2o_file))
-    }
-  } else {
-    if (debug_mode) {
-      message(paste("Using package file path for N2O emission factors:", n2o_file))
-    }
+  # Get file path
+  n2o_file = config_paths$storage_N2O
+  if (debug_mode) {
+    message(paste("Using N2O emission factors file:", n2o_file))
   }
   
   # Check if file exists
@@ -234,45 +219,20 @@ load_N2O_emission_factors = function(animal_type, config_paths, debug_mode = FAL
   })
 }
 
-#' @description Load other emission factors (NO, N2) from storage_OTHERS.yaml
 #' @param config_paths List of paths to configuration files
 #' @param debug_mode Enable debug mode for more verbose output
 #' @return List of other emission factors
 load_OTHER_emission_factors = function(config_paths, debug_mode = FALSE) {
-  # Try both package and direct file path
-  others_file = system.file(config_paths$storage_OTHERS, package = "rEMEP")
-  if (others_file == "") {
-    others_file = config_paths$storage_OTHERS
-    if (debug_mode) {
-      message(paste("Using direct file path for OTHER emission factors:", others_file))
-    }
-  } else {
-    if (debug_mode) {
-      message(paste("Using package file path for OTHER emission factors:", others_file))
-    }
+  # Get file path
+  others_file = config_paths$storage_OTHERS
+  if (debug_mode) {
+    message(paste("Using OTHER emission factors file:", others_file))
   }
   
   # Check if file exists
   if (!file.exists(others_file)) {
     warning(paste("OTHER emission factors file not found:", others_file))
-    # Try with absolute path
-    absolute_path = file.path(getwd(), config_paths$storage_OTHERS)
-    if (debug_mode) {
-      message(paste("Trying absolute path:", absolute_path))
-    }
-    if (file.exists(absolute_path)) {
-      others_file = absolute_path
-      if (debug_mode) {
-        message(paste("Found file at absolute path:", others_file))
-      }
-    } else {
-      if (debug_mode) {
-        message(paste("File not found at absolute path either:", absolute_path))
-        message(paste("Current working directory:", getwd()))
-        message(paste("Checking if directory exists:", dirname(absolute_path), ", exists:", dir.exists(dirname(absolute_path))))
-      }
-      return(NULL)
-    }
+    return(NULL)
   }
   
   tryCatch({
@@ -314,17 +274,10 @@ load_OTHER_emission_factors = function(config_paths, debug_mode = FALSE) {
 #' @param debug_mode Enable debug mode for more verbose output
 #' @return Digestate NH3 emission factor or NULL if not found
 load_digestate_NH3_emission_factors = function(config_paths, debug_mode = FALSE) {
-  # Try both package and direct file path
-  digestate_file = system.file(config_paths$digestate_NH3, package = "rEMEP")
-  if (digestate_file == "") {
-    digestate_file = config_paths$digestate_NH3
-    if (debug_mode) {
-      message(paste("Using direct file path for digestate NH3 emission factors:", digestate_file))
-    }
-  } else {
-    if (debug_mode) {
-      message(paste("Using package file path for digestate NH3 emission factors:", digestate_file))
-    }
+  # Get file path
+  digestate_file = config_paths$digestate_NH3
+  if (debug_mode) {
+    message(paste("Using digestate NH3 emission factors file:", digestate_file))
   }
   
   # Check if file exists
@@ -390,10 +343,10 @@ get_main_animal_type = function(animal_type) {
 #' @return List of all emission factors for the animal type
 compile_emission_factors = function(animal_type, 
                                    config_paths = list(
-                                     mms_NH3 = "inst/extdata/mms_NH3.yaml",
-                                     storage_N2O = "inst/extdata/storage_N2O.yaml",
-                                     storage_OTHERS = "inst/extdata/storage_OTHERS.yaml",
-                                     digestate_NH3 = "inst/extdata/digestate_NH3.yaml"
+                                     mms_NH3 = system.file("extdata/mms_NH3.yaml", package = "rEMEP"),
+                                     storage_N2O = system.file("extdata/storage_N2O.yaml", package = "rEMEP"),
+                                     storage_OTHERS = system.file("extdata/storage_OTHERS.yaml", package = "rEMEP"),
+                                     digestate_NH3 = system.file("extdata/digestate_NH3.yaml", package = "rEMEP")
                                    ),
                                    debug_mode = FALSE) {
   

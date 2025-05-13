@@ -116,9 +116,9 @@ User_input = R6Class("User_input",
     
     #' @field config_paths Paths to configuration files
     config_paths = list(
-      livestock_class_conversion = "inst/extdata/livestock_class_conversion.yaml",
-      livestock_excretion = "inst/extdata/livestock_excretion.yaml",
-      straw_litter = "inst/extdata/straw_litter.yaml"
+      livestock_class_conversion = "extdata/livestock_class_conversion.yaml",
+      livestock_excretion = "extdata/livestock_excretion.yaml",
+      straw_litter = "extdata/straw_litter.yaml"
     ),
     
     #' @field main_animal_type The main animal type category from livestock_class_conversion.yaml
@@ -384,7 +384,7 @@ User_input = R6Class("User_input",
         # Load the livestock excretion file for excretion coefficient, TAN fraction, and allocation fractions
         excretion_file = system.file(self$config_paths$livestock_excretion, package = "rEMEP")
         if (excretion_file == "") {
-          excretion_file = self$config_paths$livestock_excretion
+          stop("Could not find livestock excretion file: ", file.path("inst", self$config_paths$livestock_excretion))
         }
         
         excretion_data = yaml::read_yaml(excretion_file)
@@ -423,7 +423,7 @@ User_input = R6Class("User_input",
         # Load the straw litter file
         straw_file = system.file(self$config_paths$straw_litter, package = "rEMEP")
         if (straw_file == "") {
-          straw_file = self$config_paths$straw_litter
+          stop("Could not find straw litter file: ", self$config_paths$straw_litter)
         }
         
         straw_data = yaml::read_yaml(straw_file)
@@ -467,21 +467,9 @@ User_input = R6Class("User_input",
       # Try to find the file in the package
       straw_file = system.file(self$config_paths$straw_litter, package = "rEMEP")
       
-      # If not found in the package, try direct path
+      # If not found, stop with an error
       if (straw_file == "") {
-        # Try direct path
-        direct_path = self$config_paths$straw_litter
-        
-        # Try relative to current directory
-        if (file.exists(direct_path)) {
-          straw_file = direct_path
-        } else {
-          # Try removing 'inst/' from the path (as it's removed during package installation)
-          adjusted_path = gsub("^inst/", "", direct_path)
-          if (file.exists(adjusted_path)) {
-            straw_file = adjusted_path
-          }
-        }
+        stop("Could not find straw litter file: ", file.path("inst", self$config_paths$straw_litter))
       }
       
       # Check if file exists
@@ -568,3 +556,4 @@ User_input = R6Class("User_input",
     }
   )
 )
+

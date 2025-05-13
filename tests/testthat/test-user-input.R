@@ -2,20 +2,8 @@ library(testthat)
 library(R6)
 library(yaml)
 
-# Get the package root directory
-root_dir <- normalizePath(file.path(getwd(), "../.."))
-
-# Source the necessary files using absolute paths
-source(file.path(root_dir, "R", "User_input.R"))
-
-# Helper function to get config file paths
-get_config_path <- function(filename) {
-  path <- file.path(root_dir, "inst", "extdata", filename)
-  if (!file.exists(path)) {
-    warning(paste(filename, "file not found:", path))
-  }
-  return(path)
-}
+# No need for manual file sourcing and path handling
+# The package should be loaded by devtools::test()
 
 # Test the User_input class
 test_that("User_input class initializes correctly", {

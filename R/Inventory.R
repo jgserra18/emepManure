@@ -57,11 +57,11 @@ MMS = R6Class("MMS",
 
     #' @field config_paths Paths to configuration files
     config_paths = list(
-      mms_NH3 = "inst/extdata/mms_NH3.yaml",
-      storage_N2O = "inst/extdata/storage_N2O.yaml",
-      storage_OTHERS = "inst/extdata/storage_OTHERS.yaml",
-      digestate_NH3 = "inst/extdata/digestate_NH3.yaml",
-      global_parameters = "inst/extdata/global_parameters.yaml"
+      mms_NH3 = system.file("extdata/mms_NH3.yaml", package = "rEMEP"),
+      storage_N2O = system.file("extdata/storage_N2O.yaml", package = "rEMEP"),
+      storage_OTHERS = system.file("extdata/storage_OTHERS.yaml", package = "rEMEP"),
+      digestate_NH3 = system.file("extdata/digestate_NH3.yaml", package = "rEMEP"),
+      global_parameters = system.file("extdata/global_parameters.yaml", package = "rEMEP")
     ),
 
     #' @field debug_mode Enable debug mode for more verbose output
@@ -115,10 +115,10 @@ MMS = R6Class("MMS",
 
       # Set up config paths
       config_paths = list(
-        mms_NH3 = "inst/extdata/mms_NH3.yaml",
-        storage_N2O = "inst/extdata/storage_N2O.yaml",
-        storage_OTHERS = "inst/extdata/storage_OTHERS.yaml",
-        digestate_NH3 = "inst/extdata/digestate_NH3.yaml"
+        mms_NH3 = system.file("extdata/mms_NH3.yaml", package = "rEMEP"),
+        storage_N2O = system.file("extdata/storage_N2O.yaml", package = "rEMEP"),
+        storage_OTHERS = system.file("extdata/storage_OTHERS.yaml", package = "rEMEP"),
+        digestate_NH3 = system.file("extdata/digestate_NH3.yaml", package = "rEMEP")
       )
 
       # Compile emission factors
