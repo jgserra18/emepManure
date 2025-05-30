@@ -1,1 +1,16 @@
-.Rproj.user
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.o
+*.so
+*.dll
+.DS_Store
+.Renviron
+.Rapp.history
+.httr-oauth
+.quarto/
+*-Ex.R
+/*.tar.gz
+/*.Rcheck/
+.Rbuildignore~

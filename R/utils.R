@@ -9,10 +9,18 @@
 #' @param config_dir Path to the configuration directory
 #' @return Standardized animal type
 #' @keywords internal
-.standardize_animal_type = function(animal_type, config_dir) {
-  conversion_file = file.path(config_dir, "livestock_class_conversion.yaml")
-  if (!file.exists(conversion_file)) {
-    stop("Livestock class conversion file not found: ", conversion_file)
+.standardize_animal_type = function(animal_type, config_dir = NULL) {
+  # Use system.file to locate the file in the package
+  if (is.null(config_dir)) {
+    conversion_file = system.file("extdata/livestock_class_conversion.yaml", package = "rEMEP")
+    if (conversion_file == "") {
+      stop("Livestock class conversion file not found in package")
+    }
+  } else {
+    conversion_file = file.path(config_dir, "livestock_class_conversion.yaml")
+    if (!file.exists(conversion_file)) {
+      stop("Livestock class conversion file not found: ", conversion_file)
+    }
   }
   
   # Read the YAML file as text to handle the non-standard format
@@ -53,7 +61,7 @@
 #' @param config_dir Path to the configuration directory
 #' @return The extracted data for the animal
 #' @keywords internal
-.extract_animal_data = function(data_structure, original_type, std_type, config_dir) {
+.extract_animal_data = function(data_structure, original_type, std_type, config_dir = NULL) {
   # First try with the original animal type
   if (!is.null(data_structure[[original_type]])) {
     return(data_structure[[original_type]])
@@ -66,7 +74,17 @@
   
   # For birds category, check if the animal is in the birds category
   # and if there's a "birds" entry in the data structure
-  conversion_file = file.path(config_dir, "livestock_class_conversion.yaml")
+  if (is.null(config_dir)) {
+    conversion_file = system.file("extdata/livestock_class_conversion.yaml", package = "rEMEP")
+    if (conversion_file == "") {
+      stop("Livestock class conversion file not found in package")
+    }
+  } else {
+    conversion_file = file.path(config_dir, "livestock_class_conversion.yaml")
+    if (!file.exists(conversion_file)) {
+      stop("Livestock class conversion file not found: ", conversion_file)
+    }
+  }
   conversions = yaml::read_yaml(conversion_file)$livestock_conversions
   
   if ("birds" %in% names(conversions) && 
