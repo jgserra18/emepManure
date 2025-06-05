@@ -1,11 +1,6 @@
 library(testthat)
 library(R6)
-
-# Get the package root directory
-root_dir <- normalizePath(file.path(getwd(), "../.."))
-
-# Source the necessary files
-source(file.path(root_dir, "R", "Bedding.R"))
+library(rEMEP)
 
 test_that("ex_housing_solid_TAN calculates correctly with f_man_solid parameter", {
   # Test case with typical values

@@ -1,34 +1,20 @@
 library(testthat)
 library(R6)
 library(yaml)
+library(rEMEP)
 
-# Get the package root directory
-root_dir <- normalizePath(file.path(getwd(), "../.."))
-
-# Source the necessary files using absolute paths
-source(file.path(root_dir, "R", "User_input.R"))
-source(file.path(root_dir, "R", "Inventory.R"))
-
-# Helper function to get config file paths
+# Use system.file to get paths to config files in a package-friendly way
 get_config_path <- function(filename) {
-  path <- file.path(root_dir, "inst", "extdata", filename)
-  if (!file.exists(path)) {
-    warning(paste(filename, "file not found:", path))
+  path <- system.file("extdata", filename, package = "rEMEP")
+  if (path == "") {
+    # Fall back to development mode if not installed as package
+    path <- file.path("inst", "extdata", filename)
+    if (!file.exists(path)) {
+      warning(paste(filename, "file not found:", path))
+    }
   }
   return(path)
 }
-
-# Source other required files
-source(file.path(root_dir, "R", "Emission_factors.R"))
-source(file.path(root_dir, "R", "Excretion.R"))
-source(file.path(root_dir, "R", "Housing.R"))
-source(file.path(root_dir, "R", "Storage.R"))
-source(file.path(root_dir, "R", "Application.R"))
-source(file.path(root_dir, "R", "Grazing.R"))
-source(file.path(root_dir, "R", "Yards.R"))
-source(file.path(root_dir, "R", "Digestates.R"))
-source(file.path(root_dir, "R", "Bedding.R"))
-source(file.path(root_dir, "R", "Utils.R"))
 
 # Test the MMS class with slurry_crust parameter
 test_that("MMS class initializes correctly with slurry_crust = TRUE", {
