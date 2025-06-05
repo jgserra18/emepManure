@@ -26,6 +26,13 @@ ex_housing_solid_TAN(
 
 \item{f_imm}{fraction of TAN immobilised in organic matter (0-1)}
 }
+\value{
+Total TAN in solid manure including bedding TAN minus NH3 emissions
+}
 \description{
 Calculates the total amount of TAN in solid manure removed from livestock due to immobilisation of TAN in bedding and NH3 emissions
+}
+\examples{
+# Example usage
+ex_housing_solid_TAN(100, 10, 50, 0.3, 500, 0.0067)
 }

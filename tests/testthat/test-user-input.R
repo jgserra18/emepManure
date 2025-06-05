@@ -46,8 +46,8 @@ test_that("User_input class initializes correctly", {
 })
 
 test_that("User_input validation works correctly for invalid parameters", {
-  # Create a User_input object with invalid parameters
-  invalid_input <- suppressWarnings(
+  # Test that invalid allocation fractions throw an error
+  expect_error(
     User_input$new(
       animal_type = "dairy_cattle",
       animal_number = 100,
@@ -64,11 +64,9 @@ test_that("User_input validation works correctly for invalid parameters", {
       fraction_storage_solid = 0.9,
       fraction_biogas_solid = 0.1,
       slurry_crust = TRUE
-    )
+    ),
+    "Allocation fractions.*sum to 1"
   )
-  
-  # Check that the validation failed
-  expect_false(invalid_input$valid)
 })
 
 test_that("User_input validation works correctly for valid parameters", {

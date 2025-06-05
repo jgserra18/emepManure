@@ -21,8 +21,15 @@ ex_housing_solid_N(
 
 \item{bedding_amount}{Annual straw use in bedding (kg N/(head.yr))}
 
-\item{f_man_solid}{Proportion of manure handled as solid (0-1)}
+\item{f_man_solid}{Fraction of manure handled as solid \link{0-1}}
+}
+\value{
+Total N in solid manure including bedding N minus NH3 emissions
 }
 \description{
 Calculates the total amount of N in solid manure removed due to N-NH3 emissions
+}
+\examples{
+# Example usage
+ex_housing_solid_N(100, 10, 50, 500, 0.3)
 }

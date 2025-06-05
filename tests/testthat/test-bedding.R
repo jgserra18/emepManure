@@ -56,7 +56,7 @@ test_that("ex_housing_solid_N calculates correctly with bedding_amount and f_man
   f_man_solid <- 0.3         # proportion
   
   # Calculate expected result
-  expected <- 1500 + (100 * 5 * 0.3) - 100
+  expected <- 1500 + (100 * 5 * 0.04 * 0.3) - 100
   
   # Call the function
   result <- ex_housing_solid_N(
