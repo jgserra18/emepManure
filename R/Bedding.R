@@ -3,7 +3,7 @@
 #' @param housing_solid_TAN TAN deposited in housing from solid manure (kg TAN/head(head/yr))
 #' @param housing_solid_NH3 N-NH3 emissions in housing from solid manure (kg N-NH3/yr)
 #' @param animal_no livestock number (head/yr)
-#' @param bedding_amount Annual straw use in bedding (kg N/(head.yr))
+#' @param bedding_amount Annual straw use in bedding (kg DM/(head.yr))
 #' @param f_imm fraction of TAN immobilised in organic matter (0-1)
 #' @description
 #' Calculates the total amount of TAN in solid manure removed from livestock due to immobilisation of TAN in bedding and NH3 emissions
@@ -37,8 +37,8 @@ ex_housing_solid_TAN = function(housing_solid_TAN,
 ex_housing_solid_N = function(housing_solid_N,
                               housing_solid_NH3,
                               animal_no,
-                              straw_N) {
+                              bedding_amount) {
   
-  return( housing_solid_N - (housing_solid_NH3 + (animal_no * straw_N)) )
+  return( housing_solid_N + (animal_no * bedding_amount / 100) - housing_solid_NH3 )
 }
 
