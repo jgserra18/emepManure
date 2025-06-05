@@ -1,7 +1,6 @@
 library(testthat)
+library(rEMEP)
 
-# Set the working directory to the package root
-root_dir <- "C:/Users/João Serra/OneDrive/Modelling/rEMEP"
-
-# Run all tests in the testthat directory using the full path
-test_dir(file.path(root_dir, "tests", "testthat"), reporter = "summary")
+# Use relative paths instead of hard-coded paths
+# This will work regardless of where the package is installed
+test_check("rEMEP")
