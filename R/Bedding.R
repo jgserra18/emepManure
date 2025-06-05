@@ -26,7 +26,7 @@ ex_housing_solid_TAN = function(housing_solid_TAN,
 #' @param housing_solid_N  N deposited in housing from solid manure (kg N/head(head/yr))
 #' @param housing_solid_NH3 N-NH3 emissions in housing from solid manure (kg N-NH3/yr)
 #' @param animal_no livestock number (head/yr)
-#' @param straw_N N added in straw (kg N/(head.yr))
+#' @param bedding_amount Annual straw use in bedding (kg DM/(head.yr))
 #' @description
 #' Calculates the total amount of N in solid manure removed due to N-NH3 emissions
 #' 

@@ -306,7 +306,7 @@ MMS = R6Class("MMS",
       Housing_ex_N = ex_housing_solid_N(housing_solid_N = Housing_solid_N,
                                         housing_solid_NH3 = Housing_solid_emNH3,
                                         animal_no = input$animal_number,
-                                        straw_N = input$bedding_N)
+                                        bedding_amount = input$bedding_amount)
 
 
       # Store housing results
