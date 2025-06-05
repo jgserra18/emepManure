@@ -16,6 +16,8 @@ parameters and emission factors from configuration files.
 
 \item{\code{debug_mode}}{Enable debug mode for more verbose output}
 
+\item{\code{check}}{Enable mass check balance across all steps}
+
 \item{\code{global_params}}{Global parameters loaded from configuration files}
 
 \item{\code{results}}{Results of the simulation}

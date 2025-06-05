@@ -89,8 +89,7 @@ User_input = R6Class("User_input",
     #' @field bedding_amount Bedding amount (kg/(head.yr)). Required when solid manure is used.
     bedding_amount = NULL,
     
-    #' @field bedding_N N content in bedding (kg N/(head.yr)). Required when solid manure is used.
-    bedding_N = NULL,
+    # bedding_N has been removed in favor of bedding_amount
     
     #' @field fraction_storage_slurry Fraction of slurry going to storage [0-1]. Must not exceed 1 with biogas.
     fraction_storage_slurry = NULL,
@@ -135,7 +134,7 @@ User_input = R6Class("User_input",
     #' @param fraction_manure_slurry Fraction of manure handled as slurry [0-1]. Must sum to 1 with solid.
     #' @param fraction_manure_solid Fraction of manure handled as solid [0-1]. Must sum to 1 with slurry.
     #' @param bedding_amount Bedding amount (kg/(head.yr)). Required when solid manure is used.
-    #' @param bedding_N N content in bedding (kg N/(head.yr)). Required when solid manure is used.
+    #' @param bedding_amount Bedding amount (kg/(head.yr)). Required when solid manure is used.
     #' @param fraction_storage_slurry Fraction of slurry going to storage [0-1]. Must not exceed 1 with biogas.
     #' @param fraction_biogas_slurry Fraction of slurry going to biogas [0-1]. Must not exceed 1 with storage.
     #' @param fraction_storage_solid Fraction of solid manure going to storage [0-1]. Must not exceed 1 with biogas.
@@ -152,7 +151,6 @@ User_input = R6Class("User_input",
                           fraction_manure_slurry,
                           fraction_manure_solid,
                           bedding_amount = NULL,
-                          bedding_N = NULL,
                           fraction_storage_slurry,
                           fraction_biogas_slurry,
                           fraction_storage_solid,
@@ -179,7 +177,6 @@ User_input = R6Class("User_input",
       if (!is.null(fraction_housing)) self$fraction_housing = fraction_housing
       if (!is.null(fraction_TAN)) self$fraction_TAN = fraction_TAN
       if (!is.null(bedding_amount)) self$bedding_amount = bedding_amount
-      if (!is.null(bedding_N)) self$bedding_N = bedding_N
       
       # Store remaining parameters
       self$fraction_manure_slurry = fraction_manure_slurry
@@ -289,7 +286,7 @@ User_input = R6Class("User_input",
       cat("  - Solid:", self$fraction_manure_solid, "\n")
       if (self$fraction_manure_solid > 0) {
         cat("Bedding amount:", self$bedding_amount, "kg/(head.yr)\n")
-        cat("Bedding N content:", self$bedding_N, "kg N/(head.yr)\n")
+        # Bedding N content line removed
       }
       cat("Manure usage fractions:\n")
       cat("  - Storage (slurry):", self$fraction_storage_slurry, "\n")
@@ -327,7 +324,7 @@ User_input = R6Class("User_input",
         fraction_manure_slurry = self$fraction_manure_slurry,
         fraction_manure_solid = self$fraction_manure_solid,
         bedding_amount = self$bedding_amount,
-        bedding_N = self$bedding_N,
+        # bedding_N removed
         fraction_storage_slurry = self$fraction_storage_slurry,
         fraction_biogas_slurry = self$fraction_biogas_slurry,
         fraction_storage_solid = self$fraction_storage_solid,
@@ -404,11 +401,7 @@ User_input = R6Class("User_input",
           self$load_bedding_amount()
         }
         
-        # Load the straw litter file for bedding N content
-        if (is.null(self$bedding_N)) {
-          self$load_bedding_N()
-        }
-        
+
         return(invisible(self))
       }, error = function(e) {
         warning(paste("Error loading defaults:", e$message))
@@ -459,67 +452,6 @@ User_input = R6Class("User_input",
         warning(paste("Error loading bedding amount:", e$message))
         return(invisible(self))
       })
-    },
-    
-    #' @description Load bedding N content from straw_litter.yaml
-    #' @return Invisibly returns the User_input object for method chaining
-    load_bedding_N = function() {
-      # Try to find the file in the package
-      straw_file = system.file(self$config_paths$straw_litter, package = "rEMEP")
-      
-      # If not found, stop with an error
-      if (straw_file == "") {
-        stop("Could not find straw litter file: ", file.path("inst", self$config_paths$straw_litter))
-      }
-      
-      # Check if file exists
-      if (!file.exists(straw_file)) {
-        # Try one more approach - look for the file in inst/extdata directly
-        alt_path = file.path("inst", "extdata", basename(self$config_paths$straw_litter))
-        if (file.exists(alt_path)) {
-          straw_file = alt_path
-        } else {
-          warning(paste("Straw litter file not found:", straw_file))
-          return(invisible(self))
-        }
-      }
-      
-      # Load straw litter data
-      tryCatch({
-        straw_data = yaml::read_yaml(straw_file)
-        
-        # Get bedding N content for the animal type from the livestock_categories
-        if (!is.null(straw_data$livestock_categories[[self$animal_type]])) {
-          self$bedding_N = straw_data$livestock_categories[[self$animal_type]]$nitrogen_added_in_straw_kg_per_AAP_per_year
-          if (!is.null(self$bedding_N)) {
-            message(paste("Loaded bedding N content for", self$animal_type, ":", self$bedding_N, "kg N/(head.yr)"))
-          }
-        } else if (!is.null(self$main_animal_type) && !is.null(straw_data$livestock_categories[[self$main_animal_type]])) {
-          self$bedding_N = straw_data$livestock_categories[[self$main_animal_type]]$nitrogen_added_in_straw_kg_per_AAP_per_year
-          if (!is.null(self$bedding_N)) {
-            message(paste("Loaded bedding N content for", self$main_animal_type, ":", self$bedding_N, "kg N/(head.yr)"))
-          }
-        } else {
-          # Special case for sheep (singular/plural difference)
-          if (self$animal_type == "sheep" && !is.null(straw_data$livestock_categories[["sheeps"]])) {
-            self$bedding_N = straw_data$livestock_categories[["sheeps"]]$nitrogen_added_in_straw_kg_per_AAP_per_year
-            if (!is.null(self$bedding_N)) {
-              message(paste("Loaded bedding N content for sheeps:", self$bedding_N, "kg N/(head.yr)"))
-            }
-          } else if (self$main_animal_type == "sheep" && !is.null(straw_data$livestock_categories[["sheeps"]])) {
-            self$bedding_N = straw_data$livestock_categories[["sheeps"]]$nitrogen_added_in_straw_kg_per_AAP_per_year
-            if (!is.null(self$bedding_N)) {
-              message(paste("Loaded bedding N content for sheeps:", self$bedding_N, "kg N/(head.yr)"))
-            }
-          } else {
-            warning(paste("Bedding N content not found for animal type:", self$animal_type))
-          }
-        }
-      }, error = function(e) {
-        warning(paste("Error loading straw litter data:", e$message))
-      })
-      
-      return(invisible(self))
     },
     
     #' @description Load default values for a specific animal from the data

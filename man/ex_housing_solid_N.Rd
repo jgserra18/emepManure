@@ -4,7 +4,13 @@
 \alias{ex_housing_solid_N}
 \title{ex_housing_solid_N}
 \usage{
-ex_housing_solid_N(housing_solid_N, housing_solid_NH3, animal_no, straw_N)
+ex_housing_solid_N(
+  housing_solid_N,
+  housing_solid_NH3,
+  animal_no,
+  bedding_amount,
+  f_man_solid
+)
 }
 \arguments{
 \item{housing_solid_N}{N deposited in housing from solid manure (kg N/head(head/yr))}
@@ -13,7 +19,9 @@ ex_housing_solid_N(housing_solid_N, housing_solid_NH3, animal_no, straw_N)
 
 \item{animal_no}{livestock number (head/yr)}
 
-\item{straw_N}{N added in straw (kg N/(head.yr))}
+\item{bedding_amount}{Annual straw use in bedding (kg N/(head.yr))}
+
+\item{f_man_solid}{Proportion of manure handled as solid (0-1)}
 }
 \description{
 Calculates the total amount of N in solid manure removed due to N-NH3 emissions

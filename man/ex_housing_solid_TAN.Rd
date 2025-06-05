@@ -8,6 +8,7 @@ ex_housing_solid_TAN(
   housing_solid_TAN,
   housing_solid_NH3,
   animal_no,
+  f_man_solid,
   bedding_amount,
   f_imm
 )
@@ -18,6 +19,8 @@ ex_housing_solid_TAN(
 \item{housing_solid_NH3}{N-NH3 emissions in housing from solid manure (kg N-NH3/yr)}
 
 \item{animal_no}{livestock number (head/yr)}
+
+\item{f_man_solid}{Proportion of manure handled as solid (0-1)}
 
 \item{bedding_amount}{Annual straw use in bedding (kg N/(head.yr))}
 

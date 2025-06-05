@@ -300,15 +300,15 @@ MMS = R6Class("MMS",
 
       Housing_ex_TAN = ex_housing_solid_TAN(housing_solid_TAN = Housing_solid_TAN,
                                              housing_solid_NH3 = Housing_solid_emNH3,
-                                             animal_no = input$animal_number,
-                                             f_man_solid = input$f_man_solid,
-                                             bedding_N = input$bedding_N,
+                                             animal_no = self$user_input$animal_number,
+                                             f_man_solid = self$user_input$fraction_manure_solid,
+                                             bedding_amount = self$user_input$bedding_amount,
                                              f_imm = f_imm)
       Housing_ex_N = ex_housing_solid_N(housing_solid_N = Housing_solid_N,
                                         housing_solid_NH3 = Housing_solid_emNH3,
-                                        animal_no = input$animal_number,
-                                        bedding_N = input$bedding_N,
-                                        f_man_solid = input$f_man_solid)
+                                        animal_no = self$user_input$animal_number,
+                                        bedding_amount = self$user_input$bedding_amount,
+                                        f_man_solid = self$user_input$fraction_manure_solid)
 
 
       # Store housing results

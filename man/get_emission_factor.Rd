@@ -9,10 +9,12 @@ get_emission_factor(
   stage,
   gas,
   manure_type = NULL,
-  config_paths = list(mms_NH3 = "inst/extdata/mms_NH3.yaml", storage_N2O =
-    "inst/extdata/storage_N2O.yaml", storage_OTHERS = "inst/extdata/storage_OTHERS.yaml",
-    digestate_NH3 = "inst/extdata/digestate_NH3.yaml"),
-  debug_mode = FALSE
+  config_paths = list(mms_NH3 = system.file("extdata/mms_NH3.yaml", package = "rEMEP"),
+    storage_N2O = system.file("extdata/storage_N2O.yaml", package = "rEMEP"),
+    storage_OTHERS = system.file("extdata/storage_OTHERS.yaml", package = "rEMEP"),
+    digestate_NH3 = system.file("extdata/digestate_NH3.yaml", package = "rEMEP")),
+  debug_mode = FALSE,
+  slurry_crust = FALSE
 )
 }
 \arguments{

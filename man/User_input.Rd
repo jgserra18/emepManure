@@ -31,8 +31,6 @@ and does not run any calculations.
 
 \item{\code{bedding_amount}}{Bedding amount (kg/(head.yr)). Required when solid manure is used.}
 
-\item{\code{bedding_N}}{N content in bedding (kg N/(head.yr)). Required when solid manure is used.}
-
 \item{\code{fraction_storage_slurry}}{Fraction of slurry going to storage \link{0-1}. Must not exceed 1 with biogas.}
 
 \item{\code{fraction_biogas_slurry}}{Fraction of slurry going to biogas \link{0-1}. Must not exceed 1 with storage.}
@@ -65,7 +63,6 @@ This affects N2O emission factors for cattle and pigs.}
 \item \href{#method-User_input-get_main_animal_type}{\code{User_input$get_main_animal_type()}}
 \item \href{#method-User_input-fill_default_values}{\code{User_input$fill_default_values()}}
 \item \href{#method-User_input-load_bedding_amount}{\code{User_input$load_bedding_amount()}}
-\item \href{#method-User_input-load_bedding_N}{\code{User_input$load_bedding_N()}}
 \item \href{#method-User_input-load_defaults_for_animal}{\code{User_input$load_defaults_for_animal()}}
 \item \href{#method-User_input-clone}{\code{User_input$clone()}}
 }
@@ -87,7 +84,6 @@ Create a new User_input object and validate the input parameters
   fraction_manure_slurry,
   fraction_manure_solid,
   bedding_amount = NULL,
-  bedding_N = NULL,
   fraction_storage_slurry,
   fraction_biogas_slurry,
   fraction_storage_solid,
@@ -119,7 +115,7 @@ Create a new User_input object and validate the input parameters
 
 \item{\code{bedding_amount}}{Bedding amount (kg/(head.yr)). Required when solid manure is used.}
 
-\item{\code{bedding_N}}{N content in bedding (kg N/(head.yr)). Required when solid manure is used.}
+\item{\code{bedding_amount}}{Bedding amount (kg/(head.yr)). Required when solid manure is used.}
 
 \item{\code{fraction_storage_slurry}}{Fraction of slurry going to storage \link{0-1}. Must not exceed 1 with biogas.}
 
@@ -226,19 +222,6 @@ Invisibly returns the User_input object for method chaining
 Load bedding amount from straw_litter.yaml
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{User_input$load_bedding_amount()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-Invisibly returns the User_input object for method chaining
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-User_input-load_bedding_N"></a>}}
-\if{latex}{\out{\hypertarget{method-User_input-load_bedding_N}{}}}
-\subsection{Method \code{load_bedding_N()}}{
-Load bedding N content from straw_litter.yaml
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{User_input$load_bedding_N()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
