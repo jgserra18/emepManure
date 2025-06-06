@@ -326,7 +326,8 @@ MMS = R6Class("MMS",
           NH3_N = Housing_solid_emNH3
         ),
         total = list(
-          NH3_N = Housing_slurry_emNH3 + Housing_solid_emNH3
+          NH3_N = sum(c(ifelse(is.na(Housing_slurry_emNH3), 0, Housing_slurry_emNH3), 
+                     ifelse(is.na(Housing_solid_emNH3), 0, Housing_solid_emNH3)))
         )
       )
       if (self$debug_mode) {message("Housing emissions calculated.") }
@@ -395,10 +396,14 @@ MMS = R6Class("MMS",
           N2 = Storage_solid_em$N2
         ),
         total = list(
-          NH3_N = Storage_solid_em$NH3 + Storage_slurry_em$NH3,
-          N2O_N = Storage_solid_em$N2O + Storage_slurry_em$N2O,
-          NO_N = Storage_solid_em$NO + Storage_slurry_em$NO,
-          N2 = Storage_solid_em$N2 + Storage_slurry_em$N2
+          NH3_N = sum(c(ifelse(is.na(Storage_solid_em$NH3), 0, Storage_solid_em$NH3), 
+                     ifelse(is.na(Storage_slurry_em$NH3), 0, Storage_slurry_em$NH3))),
+          N2O_N = sum(c(ifelse(is.na(Storage_solid_em$N2O), 0, Storage_solid_em$N2O), 
+                     ifelse(is.na(Storage_slurry_em$N2O), 0, Storage_slurry_em$N2O))),
+          NO_N = sum(c(ifelse(is.na(Storage_solid_em$NO), 0, Storage_solid_em$NO), 
+                    ifelse(is.na(Storage_slurry_em$NO), 0, Storage_slurry_em$NO))),
+          N2 = sum(c(ifelse(is.na(Storage_solid_em$N2), 0, Storage_solid_em$N2), 
+                  ifelse(is.na(Storage_slurry_em$N2), 0, Storage_slurry_em$N2)))
         )
       )
       if (self$debug_mode) { message("Storage emissions calculated.") }
@@ -514,7 +519,8 @@ MMS = R6Class("MMS",
           netTAN = netAppl_solid_TAN
         ),
         total = list(
-          NH3_N = Appl_slurry_emNH3 + Appl_solid_emNH3
+          NH3_N = sum(c(ifelse(is.na(Appl_slurry_emNH3), 0, Appl_slurry_emNH3), 
+                     ifelse(is.na(Appl_solid_emNH3), 0, Appl_solid_emNH3)))
         )
       )
       if (self$debug_mode) { message("Application NH3 emissions calculated.") }
@@ -531,16 +537,20 @@ MMS = R6Class("MMS",
 
       if (self$debug_mode) {message('Estimating total emissions') }
 
-      # NH3 emissions in kg NH3 (not NH3-N)
-      # Note: This assumes that the NH3 values are already converted from NH3-N to NH3
-      # If they are not, this calculation needs to be adjusted
-      total_NH3_N = results$grazing$NH3 + results$yards$NH3 +
-                results$housing$total$NH3 + results$storage$total$NH3 +
-                results$application$total$NH3
+      # NH3 emissions in kg NH3-N
+      # Calculate total NH3-N emissions across all stages, replacing NA values with 0
+      total_NH3_N = sum(c(
+                ifelse(is.na(results$grazing$NH3_N), 0, results$grazing$NH3_N),
+                ifelse(is.na(results$yards$NH3_N), 0, results$yards$NH3_N),
+                ifelse(is.na(results$housing$total$NH3_N), 0, results$housing$total$NH3_N),
+                ifelse(is.na(results$storage$total$NH3_N), 0, results$storage$total$NH3_N),
+                ifelse(is.na(results$application$total$NH3_N), 0, results$application$total$NH3_N)
+      ))
 
-      total_N2O_N = results$storage$total$N2O_N
-      total_NO_N = results$storage$total$NO_N
-      total_N2 = results$storage$total$N2
+      # Handle NA values for other emissions by replacing them with 0
+      total_N2O_N = ifelse(is.na(results$storage$total$N2O_N), 0, results$storage$total$N2O_N)
+      total_NO_N = ifelse(is.na(results$storage$total$NO_N), 0, results$storage$total$NO_N)
+      total_N2 = ifelse(is.na(results$storage$total$N2), 0, results$storage$total$N2)
 
       # Add totals to results
       results$total = list(
