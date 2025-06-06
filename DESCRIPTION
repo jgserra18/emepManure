@@ -14,3 +14,4 @@ Depends: R (>= 3.5.0)
 Imports:
     R6 (>= 2.5.0),
     yaml (>= 2.3.0)
+StagedInstall: no
